@@ -1,3 +1,11 @@
+let files;
+
+$('input[type=file]').change(function(){
+    files = this.files;
+});
+
+
+
 function call() {
     let msg   = $('#formx').serialize();
     $.ajax({
