@@ -1,6 +1,6 @@
 <?php
-echo "<pre>";
-print_r($_POST);
-print_r($_FILES);
-echo "</pre>";
+//print_r($_FILES);
+$_fil = ["key1" => "123"];
+print_r(json_encode($_fil));
+exit;
 

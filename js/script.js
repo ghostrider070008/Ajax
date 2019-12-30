@@ -4,16 +4,20 @@ $(document).ready(function() {
 
         e.preventDefault();
 
+        let data = new FormData(this);
+        console.log(data);
+
         $.ajax({
             type: $(this).attr('method'),
             url: $(this).attr('action'),
-            data: new FormData(this),
+            data: data,
             contentType: false,
             cache: false,
             processData: false,
+
             success: function(result) {
                 $('#results').html(result);
-                console.log(result);
+                console.log(JSON.parse(result));
             },
         });
 

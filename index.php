@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-    <form action="res.php"  method="POST" id="my_form" action="javascript:void(null);" enctype="multipart/form-data">
+    <form action="res2.php"  method="POST" id="my_form" action="javascript:void(null);" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-3">
                 <label for="article">Наименование статьи:</label>
