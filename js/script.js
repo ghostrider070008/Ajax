@@ -12,7 +12,8 @@ $(document).ready(function() {
             cache: false,
             processData: false,
             success: function(result) {
-                $('#results').after(result);
+                $('#results').html(result);
+                console.log(result);
             },
         });
 
