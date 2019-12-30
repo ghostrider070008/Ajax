@@ -1,4 +1,4 @@
-<<!doctype html>
+<!doctype html>
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,13 @@
     <script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
-    <form method="POST" id="formx" action="javascript:void(null);" onsubmit="call()">
+    <form action="res.php"  method="POST" id="my_form" action="javascript:void(null);" enctype="multipart/form-data">
         <legend>Test From</legend>
         <label for="name">Name:</label><input id="name" name="name" value="" type="text">
         <label for="email">Email:</label><input id="email" name="email" value="" type="text">
-        <input value="Send" type="submit">
+        <input type="file" name="file" id="file"><br>
+        <input type="file" name="file2" id="file2"><br>
+        <input value="Send" type="submit" onclick="">
     </form>
     <div id="results">вывод</div>
 
