@@ -4,6 +4,7 @@ $(document).ready(function() {
 
         e.preventDefault();
 
+
         $.ajax({
             type: $(this).attr('method'),
             url: $(this).attr('action'),
