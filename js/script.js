@@ -1,4 +1,20 @@
+
+
 $(document).ready(function() {
+    $('#migration').on("click", (e)=>{
+        $.ajax({
+            type: 'POST',
+            url: '/src/php/migrations/migration_00001.php',
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function(result) {
+                $('#results').html(result);
+                console.log(result);
+            },
+        });
+    })
 
     $('#my_form').submit(function(e) {
 

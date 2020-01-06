@@ -37,6 +37,7 @@
             </div>
         </div>
         <input class="btn-outline-success" value="Сохранить" type="submit">
+        <input class="btn-outline-success" value="Миграция" type="button" name="migration" id="migration">
     </form>
     <div id="results">вывод</div>
     </div>
