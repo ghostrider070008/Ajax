@@ -7,11 +7,12 @@
     <title>Document</title>
     <script type="text/javascript" src="js/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="js/bootstrap/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
     <script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
 </head>
 <body>
     <div class="container">
-    <form action="res2.php"  method="POST" id="my_form" action="javascript:void(null);" enctype="multipart/form-data">
+    <form action="res.php"  method="POST" id="my_form" action="javascript:void(null);" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-3">
                 <label for="article">Наименование статьи:</label>
@@ -33,7 +34,7 @@
                 <label for="img">Изображение:</label>
             </div>
             <div class="col-sm-3">
-                <input type="file" name="file2" id="img">
+                <input type="file" name="img" id="img">
             </div>
         </div>
         <input class="btn-outline-success" value="Сохранить" type="submit">
