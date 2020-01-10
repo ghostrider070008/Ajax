@@ -4,8 +4,8 @@ $(document).ready(function() {
     $('#img').bind('change', ()=>{
         let fil = $('#img');
         console.log(fil[0].files[0]);
-        if (fil[0].files[0].name.match(/\.(jpg|jpeg|png|gif)$/)){
-            console.log('Файл является изображением');
+        if (!fil[0].files[0].name.match(/\.(jpg|jpeg|png|gif)$/)){
+            console.log('Файл не является изображением');
         }
     });
     $('#migration').on("click", (e)=>{
