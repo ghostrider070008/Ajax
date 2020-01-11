@@ -1,4 +1,7 @@
 <?php
+namespace lib;
+
+use \PDO;
 
 class Migration
 {
@@ -24,7 +27,11 @@ class Migration
      * Имя таблицы БД для учета миграций
      */
     public $stateTable;
+    /**
+     * @var PDO
+     */
 
+    public $pdo;
     /**
      * Для хранения экземпляра класса для работы с базой данных
      */
@@ -36,11 +43,21 @@ class Migration
         $this->user = $user;
         $this->pass = $pass;
 
+        $this->pdo = new PDO("mysql:host=$host",$user,$pass);
+
 
 
     }
 
-    function init(){
-        $this->database = new PDO('Mysql:host='.$this->host, $this->user, $this->pass);
+    public function execute(){
+        $show1 = $this->pdo->query('SHOW DATABASES');
+        foreach ($show1 as $key => $value) {
+            //echo '<table>';
+            if ($value['Database'] === 'vacancy'){
+                print_r($value);
+                echo "УРА!!!";
+            }
+
+        }
     }
 }

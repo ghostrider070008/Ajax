@@ -1,6 +1,7 @@
 <?php
+use lib\Migration;
 
-define('DB_HOST', 'localhost');
+define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
@@ -23,7 +24,7 @@ if ($argc == 2) { // должна быть только одна опция и �
     );
     $options = getopt(implode('', array_keys($params)), $params);
 
-    $migration = new Migration(
+    $migration = new lib\Migration(
         DB_HOST,
         DB_USER,
         DB_PASS
@@ -34,7 +35,8 @@ if ($argc == 2) { // должна быть только одна опция и �
         echo $help;
     } elseif (isset($options['state']) || isset($options['s'])) {
         // опция state (текущее состояние базы данных)
-            $migration->init();
+        print_r($migration);
+        $migration->execute();
         //$migration->state();
     } elseif (isset($options['migrate']) || isset($options['m'])) {
         // опция migrate (изменить состояние базы данных)

@@ -2,7 +2,7 @@
 require "../config.php";
 
 spl_autoload_register( function($classname){
-   require_once("../lib/".$classname .".php");
+   require_once("../../lib/".$classname .".php");
     return print_r($classname);
 } );
 $migration = true;
@@ -15,6 +15,7 @@ while( ( $dbd = $dbs->fetchColumn( 0 ) ) !== false )
 {
     if ($dbd == 'vacancy'){
         $migration = false;
+        print_r($dbs);
     }
     //echo $dbd.'<br>';
 }

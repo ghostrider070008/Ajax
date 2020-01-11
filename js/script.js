@@ -11,7 +11,7 @@ $(document).ready(function() {
     $('#migration').on("click", (e)=>{
         $.ajax({
             type: 'POST',
-            url: '/src/php/migrations/migration_00001.php',
+            url: 'src/php/1.php',
             contentType: false,
             cache: false,
             processData: false,
