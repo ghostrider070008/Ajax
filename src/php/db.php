@@ -1,5 +1,8 @@
 <?php
-use lib\Migration;
+//use lib\migration\CreateTableMigration;
+Use lib\Migration as Migration;
+use lib\ConnectTable;
+
 
 define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
@@ -24,7 +27,7 @@ if ($argc == 2) { // должна быть только одна опция и �
     );
     $options = getopt(implode('', array_keys($params)), $params);
 
-    $migration = new lib\Migration(
+    $migration = new Migration(
         DB_HOST,
         DB_USER,
         DB_PASS
@@ -35,8 +38,27 @@ if ($argc == 2) { // должна быть только одна опция и �
         echo $help;
     } elseif (isset($options['state']) || isset($options['s'])) {
         // опция state (текущее состояние базы данных)
+        $k = new ConnectTable(
+            DB_HOST,
+            DB_USER,
+            DB_PASS
+        );
+        print_r($k);
         print_r($migration);
-        $migration->execute();
+        $migration->db_existance();
+        $migration->connection_migration();
+        $m = new lib\migration\CreateTableMigration2(
+            DB_HOST,
+            DB_USER,
+            DB_PASS);
+        echo PHP_EOL.$m->up().PHP_EOL;
+        //print_r($m->up());
+        //print_r($migration->find_migration_files());
+        //print_r($migration->comparison_migration());
+
+        if ($migration->isEmpty()){
+            echo "БД пуста";
+        }
         //$migration->state();
     } elseif (isset($options['migrate']) || isset($options['m'])) {
         // опция migrate (изменить состояние базы данных)
