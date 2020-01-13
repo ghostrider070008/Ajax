@@ -95,7 +95,7 @@ class Migration
     public function find_migration_files(){
         return array_diff(scandir(__DIR__."/migration"),['..', '.']);
     }
-// Функция поиска нужного файла миграции
+// Функция поиска позиции нужного файла миграции
     public function comparison_migration(){
         return array_search('CreateTableMigration.php', $this->find_migration_files());
     }
@@ -114,4 +114,22 @@ class Migration
     }
 
 
+}
+
+// Функция присвоения класса миграции
+
+function allocation_migration()
+{
+    foreach ($this->find_migration_files() as $value) {
+
+        $value = str_replace(".php", "", $value);
+        $value = "lib\\migration\\" . $value;
+        $m = new $value(
+            DB_HOST,
+            DB_USER,
+            DB_PASS
+        );
+        echo "Value";
+        print_r($m);
+    }
 }

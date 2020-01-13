@@ -1,14 +1,17 @@
 <?php
-//use lib\migration\CreateTableMigration;
+//use lib\migration;
 Use lib\Migration as Migration;
 use lib\ConnectTable;
+/*include_once "lib/ConnectTable.php";
+include_once "lib/Migration.php";
+include_once "lib/migration/CreateTableMigration.php";*/
+include_once "autoload.php";
 
 
 define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-
-include_once 'autoload.php';
+//include_once 'autoload.php';
 $help  = 'Usage: php ' . $argv[0] . ' -h|-s|-m|-b|-r' . PHP_EOL;
 $help .= 'Options:' . PHP_EOL;
 $help .= '    -h --help       Show this message' . PHP_EOL;
@@ -46,12 +49,18 @@ if ($argc == 2) { // должна быть только одна опция и �
         print_r($k);
         print_r($migration);
         $migration->db_existance();
-        $migration->connection_migration();
-        $m = new lib\migration\CreateTableMigration2(
+        //$migration->connection_migration();
+
+        // Автозагрузка миграций
+
+        $file = ($migration->find_migration_files());
+
+
+        /*$m = new lib\migration\CreateTableMigration2(
             DB_HOST,
             DB_USER,
-            DB_PASS);
-        echo PHP_EOL.$m->up().PHP_EOL;
+            DB_PASS);*/
+        //echo PHP_EOL.$m->up().PHP_EOL;
         //print_r($m->up());
         //print_r($migration->find_migration_files());
         //print_r($migration->comparison_migration());
