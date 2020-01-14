@@ -4,7 +4,7 @@ Use lib\Migration as Migration;
 use lib\ConnectTable;
 /*include_once "lib/ConnectTable.php";
 include_once "lib/Migration.php";
-include_once "lib/migration/CreateTableMigration.php";*/
+include_once "lib/migration/CreateTableMigration1123.php";*/
 include_once "autoload.php";
 
 
@@ -54,6 +54,12 @@ if ($argc == 2) { // должна быть только одна опция и �
         // Автозагрузка миграций
 
         $file = ($migration->find_migration_files());
+       /* up($migration);
+        print_r($migration->find_migration_files());
+        down($migration);*/
+
+
+
 
 
         /*$m = new lib\migration\CreateTableMigration2(
@@ -71,13 +77,20 @@ if ($argc == 2) { // должна быть только одна опция и �
         //$migration->state();
     } elseif (isset($options['migrate']) || isset($options['m'])) {
         // опция migrate (изменить состояние базы данных)
-        $migration->migrate();;
+       // $migration->migrate();
+        $migration->up_migrate();
+        print_r($migration->find_migration_files());
+        print_r($migration->table());
+        echo "Все миграции выполнены успешно";
+
+
     } elseif (isset($options['backup']) || isset($options['b'])) {
         // опция backup (создание резервной копии)
         $migration->backup();
     } elseif (isset($options['restore']) || isset($options['r'])) {
         // опция restore (восстановление из резервной копии)
-        $migration->restore();
+        $migration->down_migrate();
+        echo "Отмена миграции выполнена успешна";
     } else {
         echo 'Syntax error, unkhown option', PHP_EOL;
         echo $help;
@@ -85,4 +98,43 @@ if ($argc == 2) { // должна быть только одна опция и �
 } else {
     echo 'Syntax error, must be one option', PHP_EOL;
     echo $help;
+}
+
+
+//Фунция применения миграции
+function up($migration)
+{
+    foreach ($migration->find_migration_files() as $value) {
+
+        $value = str_replace(".php", "", $value);
+        $value = "lib\\migration\\" . $value;
+        $m = new $value(
+            DB_HOST,
+            DB_USER,
+            DB_PASS
+        );
+        echo "Value";
+        print_r($m);
+        $m->up();
+
+    }
+}
+
+//Фунция удаления миграции
+function down($migration)
+{
+    foreach ($migration->find_migration_files() as $value) {
+
+        $value = str_replace(".php", "", $value);
+        $value = "lib\\migration\\" . $value;
+        $m = new $value(
+            DB_HOST,
+            DB_USER,
+            DB_PASS
+        );
+        echo "Value";
+        print_r($m);
+        $m->down();
+
+    }
 }

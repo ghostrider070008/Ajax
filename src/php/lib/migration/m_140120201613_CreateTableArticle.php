@@ -2,18 +2,19 @@
 namespace lib\migration;
 use lib\Migration as Migration;
 
-class CreateTableMigration extends Migration
+class m_140120201613_CreateTableArticle extends Migration
 {
     public function up(){
         try {
-            $sth = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `vacancy`.`current_migrations` (
+            $sth = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `vacancy`.`article` (
             `id` INT NOT NULL AUTO_INCREMENT,
-            `name` varchar(255),
-            `date` timestamp,
+            `title` varchar(255),
+            `text` LONGTEXT,
+            `date_created` timestamp,
+            `date_update` timestamp,
             `status` INT,
             PRIMARY KEY (`id`));");
             $sth->execute();
-            echo "Миграция выполнена успешно CreateTable";
         } catch (PDOException $e) {
             echo 'Во время выполнения возникла ошибка: ' . $e->getMessage();
         }
@@ -25,7 +26,7 @@ class CreateTableMigration extends Migration
     public function down(){
         if ($this->db_existance()){
 
-            return $this->prepare("DROP TABLE `vacancy`.`current_migrations`;");
+            return $this->prepare("DROP TABLE `vacancy`.`article`;");
         }
         else{
             echo "Отмена миграции невозможна! БД не существует";
