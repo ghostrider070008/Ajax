@@ -9,7 +9,7 @@ class CreateTableMigration extends Migration
             $sth = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `vacancy`.`current_migrations` (
             `id` INT NOT NULL AUTO_INCREMENT,
             `name` varchar(255),
-            `date` timestamp,
+            `date` BIGINT,
             `status` INT,
             PRIMARY KEY (`id`));");
             $sth->execute();

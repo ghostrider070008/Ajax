@@ -1,8 +1,8 @@
 <?php
 //use lib\migration;
 Use lib\Migration as Migration;
-use lib\ConnectTable;
-/*include_once "lib/ConnectTable.php";
+use lib\DataBase;
+/*include_once "lib/DataBase.php";
 include_once "lib/Migration.php";
 include_once "lib/migration/CreateTableMigration1123.php";*/
 include_once "autoload.php";
@@ -11,6 +11,7 @@ include_once "autoload.php";
 define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+define('DB_NAME', 'vacancy');
 //include_once 'autoload.php';
 $help  = 'Usage: php ' . $argv[0] . ' -h|-s|-m|-b|-r' . PHP_EOL;
 $help .= 'Options:' . PHP_EOL;
@@ -41,12 +42,7 @@ if ($argc == 2) { // должна быть только одна опция и �
         echo $help;
     } elseif (isset($options['state']) || isset($options['s'])) {
         // опция state (текущее состояние базы данных)
-        $k = new ConnectTable(
-            DB_HOST,
-            DB_USER,
-            DB_PASS
-        );
-        print_r($k);
+
         print_r($migration);
         $migration->db_existance();
         //$migration->connection_migration();
@@ -86,7 +82,27 @@ if ($argc == 2) { // должна быть только одна опция и �
 
     } elseif (isset($options['backup']) || isset($options['b'])) {
         // опция backup (создание резервной копии)
-        $migration->backup();
+        //$migration->backup();
+       /* $db = new DataBase(
+            DB_HOST,
+            DB_USER,
+            DB_PASS,
+            DB_NAME
+        );*/
+
+        /*$db = new DataBase(
+            DB_HOST,
+            DB_USER,
+            DB_PASS,
+            DB_NAME
+        );*/
+        DataBase::init();
+        print_r(DataBase::query("SHOW DATABASES"));
+        $f = [':id' => 1];
+        print_r(DataBase::fetchAll("SELECT * FROM `current_migrations` where id=:id", $f));// функция получения записей в таблице с id = 1
+        echo date('m:d:Y H:i:s',1579033330); // перевод из timestamp в дату
+
+
     } elseif (isset($options['restore']) || isset($options['r'])) {
         // опция restore (восстановление из резервной копии)
         $migration->down_migrate();

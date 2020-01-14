@@ -152,6 +152,7 @@ class Migration
             echo "Value";
             print_r($m);
             $m->up();
+            $this->insert($m);
             echo 'Миграция выполнена успешно'.get_class($m);
 
         }
@@ -174,5 +175,14 @@ class Migration
             echo 'Отмена выполнена успешно'.get_class($m);
 
         }
+    }
+    //Функция вставки записей в таблицу миграций
+    public function insert($m){
+        $k = str_replace("lib\migration\\", "", get_class($m));
+        echo $k;
+        $sql = "INSERT INTO `vacancy`.`current_migrations` (`name`, `date`, `status`) VALUES ('".$k."', UNIX_TIMESTAMP(), '1');";
+        $sth = $this->pdo->prepare($sql);
+        $sth->execute();
+
     }
 }
