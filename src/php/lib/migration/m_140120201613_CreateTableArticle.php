@@ -10,8 +10,8 @@ class m_140120201613_CreateTableArticle extends Migration
             `id` INT NOT NULL AUTO_INCREMENT,
             `title` varchar(255),
             `text` LONGTEXT,
-            `date_created` timestamp,
-            `date_update` timestamp,
+            `date_created` BIGINT,
+            `date_update` BIGINT,
             `status` INT,
             PRIMARY KEY (`id`));");
             $sth->execute();

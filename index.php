@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-    <form action="res2.php"  method="POST" id="my_form" action="javascript:void(null);" enctype="multipart/form-data">
+    <form action="src/php/lib/Add_Article.php"  method="POST" id="my_form" action="javascript:void(null);" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-3">
                 <label for="article">Наименование статьи:</label>
@@ -38,6 +38,7 @@
         </div>
         <input class="btn-outline-success" value="Сохранить" type="submit">
         <input class="btn-outline-success" value="Миграция" type="button" name="migration" id="migration">
+        <input class="btn-outline-success" value="Проверка" type="submit" name="test" id="test">
     </form>
     <div id="results">вывод</div>
     </div>

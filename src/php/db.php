@@ -27,7 +27,8 @@ if ($argc == 2) { // должна быть только одна опция и �
         's::' => 'state::',
         'm::' => 'migrate::',
         'b::' => 'backup::',
-        'r::' => 'restore::'
+        'r::' => 'restore::',
+        'i::' => 'insert::'
     );
     $options = getopt(implode('', array_keys($params)), $params);
 
@@ -81,6 +82,7 @@ if ($argc == 2) { // должна быть только одна опция и �
 
 
     } elseif (isset($options['backup']) || isset($options['b'])) {
+
         // опция backup (создание резервной копии)
         //$migration->backup();
        /* $db = new DataBase(
@@ -107,16 +109,29 @@ if ($argc == 2) { // должна быть только одна опция и �
         // опция restore (восстановление из резервной копии)
         $migration->down_migrate();
         echo "Отмена миграции выполнена успешна";
-    } else {
+    } elseif (isset($options['insert']) || isset($options['i'])) {
+        DataBase::init();
+        DataBase::execute("INSERT INTO `vacancy`.`article` (`title`, `text`,`date_created`, `status`) VALUES (:title, :text, UNIX_TIMESTAMP(), :status);",
+            $arr = [
+                ':title' => '123456',
+                ':text' => 'text',
+                ':status' => 1
+            ]);
+    }
+
+    else {
         echo 'Syntax error, unkhown option', PHP_EOL;
         echo $help;
     }
-} else {
+
+    }
+
+    else {
     echo 'Syntax error, must be one option', PHP_EOL;
     echo $help;
 }
 
-
+print_r($_POST);
 //Фунция применения миграции
 function up($migration)
 {

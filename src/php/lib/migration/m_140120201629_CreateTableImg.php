@@ -11,8 +11,8 @@ class m_140120201629_CreateTableImg extends Migration
             `title` varchar(255),
             `id_article` INT, 
             `puth` LONGTEXT,
-            `date_created` timestamp,
-            `date_update` timestamp,
+            `date_created` BIGINT,
+            `date_update` BIGINT,
             `status` INT,
             PRIMARY KEY (`id`));");
             $sth->execute();

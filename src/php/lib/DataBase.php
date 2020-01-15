@@ -29,7 +29,7 @@ class DataBase // Класс соединения с БД
                 array(PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
             );
             self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            print_r(self::$db);
+            //print_r(self::$db);
             //self::$db->exec("SET NAMES utf8"); -- не нужно если сработает PDO::MYSQL_ATTR_INIT_COMMAND?
         }
         catch (PDOException $e)
@@ -54,6 +54,43 @@ class DataBase // Класс соединения с БД
             $sth->execute($ar);
             return $sth->fetchAll();
         }
+    }
+
+    public function fetch($query, $params = []) {
+        // подготавливаем запрос к выполнению
+        $sth = self::$db->prepare($query);
+        // выполняем запрос
+        $sth->execute($params);
+        // получаем результат
+        $result = $sth->fetch(PDO::FETCH_ASSOC);
+        // возвращаем результат запроса
+        return $result;
+    }
+
+    public function fetchOne($query, $params = array()) {
+        // подготавливаем запрос к выполнению
+        $sth = self::$db->prepare($query);
+        // выполняем запрос
+        $sth->execute($params);
+        // получаем результат
+        $result = $sth->fetch(PDO::FETCH_NUM);
+        // возвращаем результат запроса
+        if (false === $result) {
+            return false;
+        }
+        return $result[0];
+    }
+
+    public function beginTransaction() {
+        return self::$db->beginTransaction();
+    }
+
+    public function commit() {
+        return self::$db->commit();
+    }
+
+    public function rollBack() {
+        return self::$db->rollBack();
     }
 // выполнение запроса, не требующего возврата результата
     static public function exec($sql) {

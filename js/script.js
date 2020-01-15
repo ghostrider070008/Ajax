@@ -22,6 +22,24 @@ $(document).ready(function() {
             },
         });
     })
+    /*$('#test').on("click", (e)=>{
+        let data = $('#my_form').serializeArray();
+        $.ajax({
+            type: 'POST',
+            url: 'src/php/lib/Add_Article.php',
+            data: data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+
+            success: function(result) {
+                $('#results').html(result);
+                console.log(result);
+                console.log(data);
+            },
+        });
+    })*/
 
     $('#my_form').submit(function(e) {
 
@@ -39,7 +57,7 @@ $(document).ready(function() {
 
                 success: function(result) {
                     $('#results').html(result);
-                    console.log(JSON.parse(result));
+                    //console.log(JSON.parse(result));
                 },
             });
 
